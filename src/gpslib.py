@@ -412,7 +412,7 @@ class Subframe():
         if neg:
             bits = 1-bits
         for b in reversed(bits):
-            z += b*f
+            z += int(b)*f
             f *= 2
         if neg:
             z = -(z+1)
