@@ -15,19 +15,19 @@ GPS-SDR-Receiver is a Python software for real-time positioning using a low-budg
 - [Visualization and GUI](#Visualization-and-GUI)
 - [Screenshot](#Screenshot)
 - [Test run with sample data](#Test-run-with-sample-data)
-- [Windows or Linux?](#Windows-or-Linux?)
+- [Windows, Linux or MacOS?](#Windows,-Linux-or-MacOS?)
 - [RTL-SDR](#RTL-SDR)
 
 ## Features
 
 - Depending on the computer system up to 12 satellites are used for positioning in real-time.
-- Typically the receiver position is measured every 32 ms.
+- Typically the receiver position is measured every 32 ms. With powerful computers, 16 ms or 8 ms are also possible.
 - A mean position is determined every second with a standard deviation of 1-5 m depending on the number of used satellites.
-- According to the author's experience, the accuracy of the mean position is in the range of 1-10 m. Larger deviations are obtained when the number of active satellites falls below 6. Better results are achieved with 10 or more satellites. However, since transient signal delays in the atmosphere are not accounted for, the systematic deviation can exceed 20 m in rare cases.
+- The accuracy of the mean position is in the range of 1-10 m. Larger deviations are obtained when the number of active satellites falls below 6. Better results are achieved with 10 or more satellites. However, since transient signal delays in the atmosphere are not accounted for, the systematic deviation can exceed 20 m in rare cases.
 
 ## Requirements
 
-The program runs in Python 3.11.6 and has been tested on Ubuntu 24.04 and Windows 10 & 11. 
+The program runs in Python 3.11.6 or higher and has been tested on Ubuntu 24.04, Windows 10 & 11, and MacOs 15. 
 
 To use the program, you need
 
@@ -43,7 +43,7 @@ The program code is documented in detail as part of an interactive tutorial (Jup
 
 https://github.com/annappo/GPS-Tutorial
 
-The tutorial is intended as an introduction to satellite navigation. The focus, however, is on the step-by-step development of a Python code for measuring and decoding GPS data. For beginners, help on installing the software is provided.
+The tutorial is intended as an introduction to satellite navigation. The systematic approach with a step-by-step description of the basics is well suited as accompanying material for introductory courses at colleges or universities. The focus is on the development of Python code for measuring and decoding GPS data. For beginners, help is provided for installing the software.
 
 ## Installation
 
@@ -103,9 +103,15 @@ For a manual installation of single modules use
 pip install (module name)
 ```
 
-An installation on Windows requires a WinUSB driver for accessing the RTL-SDR via the USB interface. This is installed using the [Zadig](https://zadig.akeo.ie/) software. Read the [Instructions](https://github.com/pbatard/libwdi/wiki/Zadig) carefully before installation.
+On the MacOS operating system, Python and most of the required modules can be installed with the [HomeBrew](https://brew.sh) package manager. To access the RTL-SDR via the USB interface, the driver libusb is required, which is also installed with Homebrew. Please note that the maximum UDP message length on MacOS (default is 9216 Byte) must be increased, e.g. by 
 
-Depending on the operating system or Python distribution used, you may encounter problems when installing the RTL-SDR drivers. You can find help on this in the GPS tutorial (see [Help & Docs](#Help-&-Docs)).
+```
+sudo sysctl -w net.inet.udp.maxdgram=65500
+```
+
+An installation on Windows requires a WinUSB driver for accessing the RTL-SDR. This is installed using the [Zadig](https://zadig.akeo.ie/) software. Read the [Instructions](https://github.com/pbatard/libwdi/wiki/Zadig) carefully before installation. 
+
+Depending on the operating system or Python distribution used, problems may occur, especially when installing the RTL-SDR drivers. You can find help on this in the GPS tutorial (see [Help & Docs](#Help-&-Docs)).
 	
 ## How to run the program
 
@@ -181,9 +187,9 @@ If everything goes smoothly, several subframes from 11 satellites are calculated
 The sample data was created by saving the output of an RTL-SDR (stream of IQ values, 2x8 bit) to a file using the Python script *gpsbin.py* from the *pycode* folder.
 
 
-## Windows or Linux?
+## Windows, Linux or MacOS?
 
-GPS-SDR-Receiver can be run under Windows without any problems, but it turned out that it runs about twice as fast under Linux (on the author's systems). As a result, real-time tracking was possible on the same computer with 11 satellites under Linux, but at best with 7 under Windows. It is therefore recommended to use the GPS-SDR-Receiver on a Linux system or a WSL environment on Windows (Windows subsystem for Linux, see [Help & Docs](#Help-&-Docs)).
+GPS-SDR-Receiver can be operated under Windows without any problems, but it turned out to run about twice as fast under Linux and MacOS (on the author's systems). Thus, real-time tracking was possible on the same computer with 11 satellites under Linux, but at best with 7 under Windows. If you are a Windows user, it is therefore recommended to use GPS-SDR-Receiver in a WSL environment under Windows (Windows subsystem for Linux, see [Help & Docs](#Help-&-Docs)).
 
 
 ## RTL-SDR
